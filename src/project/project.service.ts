@@ -11,8 +11,14 @@ export class ProjectService {
     @InjectModel('Project') private readonly projectModel: Model<Project>,
   ) {}
 
-  async create(createProjectDto: CreateProjectDto): Promise<Project> {
-    const newProject = new this.projectModel(createProjectDto);
+  async create(
+    createProjectDto: CreateProjectDto,
+    stackFile?: Express.Multer.File,
+  ): Promise<Project> {
+    const newProject = new this.projectModel({
+      ...createProjectDto,
+      stack: stackFile?.originalname,
+    });
     return await newProject.save();
   }
 

@@ -5,19 +5,22 @@ export type projectDocument = HydratedDocument<Project>;
 
 @Schema({ timestamps: true })
 export class Project {
-  @Prop()
+  @Prop({ required: true })
   projectName: string;
 
-  @Prop()
+  @Prop({ required: true })
   language: string;
 
   @Prop()
   description: string;
 
   @Prop()
+  stack: string;
+
+  @Prop({ required: true })
   startDate: string;
 
-  @Prop()
+  @Prop({ required: true })
   endDate: string;
 }
 
