@@ -8,7 +8,7 @@ import { EditTaskController } from './use-case/edit/edit.controller';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: TaskEntity.name, schema: TaskSchema }]),
+    MongooseModule.forFeature([{ name: 'Task', schema: TaskSchema }]),
   ],
   controllers: [CreateTaskController, GetAllTaskController, EditTaskController],
   providers: [TaskService],

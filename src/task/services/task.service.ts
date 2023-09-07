@@ -7,20 +7,26 @@ import { TaskDocument, TaskEntity } from '../entities/task.entity';
 @Injectable()
 export class TaskService {
   constructor(
-    @InjectModel(TaskEntity.name)
+    @InjectModel('Task')
     private readonly taskModel: Model<TaskDocument>,
   ) {}
 
-  async create(createTaskDto: CreateTaskDto) {
+  async create(createTaskDto: CreateTaskDto): Promise<TaskDocument> {
     const newTask = new this.taskModel(createTaskDto);
-    return await newTask.save();
+    const data = await newTask.save();
+    console.log(data);
+    return data;
   }
 
   async findAll(): Promise<TaskDocument[]> {
     const result = await this.taskModel
       .find()
+      .populate('project', '_id projectName')
+      .populate('assignedEmployee', '_id name')
       .select('-__v')
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .exec();
+
     return result;
   }
 

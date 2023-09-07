@@ -1,6 +1,6 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Model } from 'mongoose';
+import { Model, UpdateQuery } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument, UserEntity } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
@@ -40,9 +40,16 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
+  async update(id: number, updateUserDto: UpdateQuery<UserDocument>): Promise<UserDocument> {
+    const user = await this.UserModel.findById(id);
+    if (!user) {
+      throw new HttpException('Not found the user', 404);
+    }
+
+    return await this.UserModel.findByIdAndUpdate(id, updateUserDto, {
+      new: true,
+    });
+  }
 
   remove(id: number) {
     return `This action removes a #${id} user`;

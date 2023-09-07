@@ -6,7 +6,7 @@ import { CreateTaskDto } from 'src/task/dto/create-task.dto';
 export class CreateTaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Post('add')
+  @Post('/add')
   async create(@Res() response, @Body() createTaskDto: CreateTaskDto) {
     try {
       const result = await this.taskService.create(createTaskDto);
@@ -17,8 +17,8 @@ export class CreateTaskController {
       });
     } catch (error) {
       return response.status(HttpStatus.BAD_REQUEST).json({
-        statusCode: error.status,
-        message: error.response.message,
+        statusCode: error?.status,
+        message: error.response?.message,
       });
     }
   }

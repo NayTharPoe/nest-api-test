@@ -6,7 +6,7 @@ import { CreateTaskDto } from 'src/task/dto/create-task.dto';
 export class GetAllTaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Get('list')
+  @Get('/list')
   async findAll(@Res() response): Promise<CreateTaskDto> {
     try {
       const result = await this.taskService.findAll();
@@ -17,8 +17,8 @@ export class GetAllTaskController {
       });
     } catch (error) {
       return response.status(HttpStatus.BAD_REQUEST).json({
-        statusCode: error.status,
-        message: error.response.message,
+        statusCode: error?.status,
+        message: error.response?.message,
       });
     }
   }

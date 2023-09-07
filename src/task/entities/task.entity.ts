@@ -1,7 +1,9 @@
 import { Prop } from '@nestjs/mongoose';
 import { SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
+import { ProjectEntity } from 'src/project/entities/project.entity';
+import { UserEntity } from 'src/user/entities/user.entity';
 export type TaskDocument = TaskEntity & Document;
 
 export class TaskEntity extends Document {
@@ -11,11 +13,11 @@ export class TaskEntity extends Document {
   @Prop({ required: true })
   description: string;
 
-  @Prop({ required: true })
-  projectName: string;
+  @Prop({ type: Types.ObjectId, ref: 'ProjectEntity', required: true })
+  projectName: ProjectEntity;
 
-  @Prop({ required: true })
-  assignedEmployee: string;
+  @Prop({ type: Types.ObjectId, ref: 'UserEntity', required: true })
+  assignedEmployee: UserEntity;
 
   @Prop({ required: true })
   estimateHour: string;

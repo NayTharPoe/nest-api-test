@@ -6,7 +6,7 @@ import { ProjectModule } from './project/project.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { mongooseConfigFactory } from './database.config';
+import { mongooseConfigFactory } from './config/database.config';
 import { ConfigService } from '@nestjs/config/dist/config.service';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { ReportModule } from './report/report.module';

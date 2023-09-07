@@ -2,19 +2,19 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Project } from './entities/project.entity';
+import { ProjectEntity, projectDocument } from './entities/project.entity';
 import { Query } from 'express-serve-static-core';
 
 @Injectable()
 export class ProjectService {
   constructor(
-    @InjectModel('Project') private readonly projectModel: Model<Project>,
+    @InjectModel('Project') private readonly projectModel: Model<projectDocument>,
   ) {}
 
   async create(
     createProjectDto: CreateProjectDto,
     stackFile?: Express.Multer.File,
-  ): Promise<Project> {
+  ): Promise<ProjectEntity> {
     const newProject = new this.projectModel({
       ...createProjectDto,
       stack: stackFile?.originalname,
@@ -51,7 +51,7 @@ export class ProjectService {
   async update(
     id: string,
     createProjectDto: CreateProjectDto,
-  ): Promise<Project> {
+  ): Promise<ProjectEntity> {
     const project = await this.projectModel.findById(id);
     if (!project) {
       throw new HttpException(

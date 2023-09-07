@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { Project } from './entities/project.entity';
+import { ProjectEntity } from './entities/project.entity';
 import { Query as ExpressQuery } from 'express-serve-static-core';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 import multer from 'multer';
@@ -28,7 +28,7 @@ export class ProjectController {
   async findAll(
     @Res() response,
     @Query() query: ExpressQuery,
-  ): Promise<Project[]> {
+  ): Promise<ProjectEntity[]> {
     try {
       const result = await this.projectService.findAll(query);
       return response
@@ -67,7 +67,7 @@ export class ProjectController {
       }),
     )
     stack?: Express.Multer.File,
-  ): Promise<Project> {
+  ): Promise<ProjectEntity> {
     const result = await this.projectService.create(createProjectDto, stack);
     return response
       .status(200)
@@ -75,7 +75,7 @@ export class ProjectController {
   }
 
   @Get('detail/:id')
-  async findOne(@Res() response, @Param('id') id: string): Promise<Project> {
+  async findOne(@Res() response, @Param('id') id: string): Promise<ProjectEntity> {
     const result = await this.projectService.findOne(id);
     return response
       .status(200)
@@ -87,7 +87,7 @@ export class ProjectController {
     @Res() response,
     @Param('id') id: string,
     @Body() createProjectDto: CreateProjectDto,
-  ): Promise<Project> {
+  ): Promise<ProjectEntity> {
     const result = await this.projectService.update(id, createProjectDto);
     return response
       .status(200)
@@ -95,7 +95,7 @@ export class ProjectController {
   }
 
   @Delete('delete/:id')
-  async remove(@Res() response, @Param('id') id: string): Promise<Project> {
+  async remove(@Res() response, @Param('id') id: string): Promise<ProjectEntity> {
     const result = await this.projectService.remove(id);
     return response
       .status(200)
