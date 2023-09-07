@@ -10,6 +10,7 @@ import { mongooseConfigFactory } from './database.config';
 import { ConfigService } from '@nestjs/config/dist/config.service';
 import { ConfigModule } from '@nestjs/config/dist/config.module';
 import { ReportModule } from './report/report.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ReportModule } from './report/report.module';
       inject: [ConfigService],
     }),
     ReportModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],

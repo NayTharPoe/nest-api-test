@@ -58,7 +58,7 @@ export class ReportService {
       throw new HttpException('Not found report with this id', 404);
     }
 
-    const deletedUser = await this.reportModel.findByIdAndRemove(id);
-    return deletedUser;
+    const deletedReport = await this.reportModel.findByIdAndRemove(id);
+    return deletedReport;
   }
 }
