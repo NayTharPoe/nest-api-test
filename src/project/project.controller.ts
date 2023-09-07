@@ -24,14 +24,13 @@ import multer from 'multer';
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
-  @Get('list')
+  @Get('/list')
   async findAll(
     @Res() response,
     @Query() query: ExpressQuery,
   ): Promise<Project[]> {
     try {
       const result = await this.projectService.findAll(query);
-      console.log('result phyit pr tl', result);
       return response
         .status(200)
         .json({ message: 'Retrieve all project successfully', data: result });

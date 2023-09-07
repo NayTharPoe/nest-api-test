@@ -23,25 +23,20 @@ export class ProjectService {
   }
 
   async findAll(query: Query) {
-    const resPerPage = 2;
+    const resPerPage = Number(query.limit);
     const currentPage = Number(query.page) || 1;
     const skip = resPerPage * (currentPage - 1);
 
-    const keyword = query.keyword
-      ? {
-          title: {
-            $regex: query.keyword,
-            $options: 'i',
-          },
-        }
-      : {};
     const data = await this.projectModel
-      .find({ ...keyword })
+      .find()
       .limit(resPerPage)
       .skip(skip)
       .sort({ createdAt: -1 })
       .select('-__v');
-    return data;
+
+    const totalProjects = await this.projectModel.countDocuments();
+    const result = { data, totalProjects };
+    return result;
   }
 
   async findOne(id: string) {
