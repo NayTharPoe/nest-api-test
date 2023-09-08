@@ -1,8 +1,10 @@
 import { Controller, Get, Res, HttpStatus } from '@nestjs/common';
 import { ReportService } from 'src/report/services/report.service';
 import { ListReportResponseDto } from './list-report-res.dto';
+import {ApiTags} from '@nestjs/swagger'
 
 @Controller('report')
+@ApiTags('Report')
 export class GetAllReportController {
   constructor(private readonly reportService: ReportService) {}
 

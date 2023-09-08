@@ -8,7 +8,7 @@ import { Query } from 'express-serve-static-core';
 @Injectable()
 export class ProjectService {
   constructor(
-    @InjectModel('Project') private readonly projectModel: Model<projectDocument>,
+    @InjectModel(ProjectEntity.name) private readonly projectModel: Model<projectDocument>,
   ) {}
 
   async create(

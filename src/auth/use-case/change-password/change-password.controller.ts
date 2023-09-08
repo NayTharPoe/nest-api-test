@@ -1,8 +1,10 @@
 import { Controller, Body, Post, Res, HttpStatus } from '@nestjs/common';
 import { AuthService } from '../../auth.service';
+import {ApiTags} from '@nestjs/swagger'
 
 @Controller('auth')
-export class ChagnePasswordController {
+@ApiTags('Change password')
+export class ChangePasswordController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('/change-password')

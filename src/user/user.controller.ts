@@ -14,12 +14,15 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserDocument } from './entities/user.entity';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
+@ApiTags('Employee')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // @UseGuards(AuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @UseGuards(AuthGuard)
   @Get('list')
   async findAll(@Res() response): Promise<UserDocument[]> {
     try {

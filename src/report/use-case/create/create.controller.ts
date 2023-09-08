@@ -1,8 +1,10 @@
 import { Controller, Post, Body, HttpStatus, Res } from '@nestjs/common';
 import { ReportService } from '../../services/report.service';
 import { CreateReportDto } from '../../dto/create-report-req.dto';
+import {ApiTags} from '@nestjs/swagger'
 
 @Controller('report')
+@ApiTags('Report')
 export class CreateReportController {
   constructor(private readonly reportService: ReportService) {}
 

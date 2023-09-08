@@ -7,9 +7,11 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
-import { EmailService } from 'src/utils/send-email';
+import { sendEmail } from 'src/utils/send-email';
 import { generateResetPasswordTemplate } from 'src/helpers/templates/resetpass-email.template';
+import { ConfigService } from '@nestjs/config/dist';
 
+const configService = new ConfigService();
 @Injectable()
 export class AuthService {
   constructor(
@@ -77,7 +79,9 @@ export class AuthService {
     }
 
     const resetToken = this.jwtService.sign({ email }, { expiresIn: '24h' });
-    const resetLink = `${process.env.CLIENT_DOMAIN}/reset-password?token=${resetToken}`;
+    const resetLink = `${configService.get(
+      'CLIENT_DOMAIN',
+    )}/reset-password?token=${resetToken}`;
 
     const emailContent = generateResetPasswordTemplate(
       user.name,
@@ -85,7 +89,7 @@ export class AuthService {
       resetLink,
     );
 
-    await EmailService.sendEmail(email, 'Password Reset Link', emailContent);
+    await sendEmail(email, 'Password Reset Link', emailContent);
 
     return {
       statusCode: HttpStatus.OK,

@@ -1,28 +1,34 @@
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsString,IsNumber } from "class-validator";
 
 export class CreateTaskDto {
-
+  @IsNotEmpty()
+  @IsString()
   readonly title: string;
 
-
+  @IsNotEmpty()
+  @IsString()
   readonly description: string;
 
+  @IsNotEmpty()
+  @IsString()
+  readonly project: string;
 
-  readonly projectName: string;
-
+  @IsNotEmpty()
+  @IsString()
   readonly assignedEmployee: string;
 
+  @IsString()
   readonly estimateHour: string;
 
-  readonly actualHour: string;
-
+  @IsNotEmpty()
+  @IsNumber()
   readonly status: number;
 
+  @IsNotEmpty()
+  @IsString()
   readonly estimateStartDate: string;
 
+  @IsNotEmpty()
+  @IsString()
   readonly estimateEndDate: string;
-
-  readonly actualStartDate: string;
-
-  readonly actualEndDate: string;
 }

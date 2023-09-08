@@ -19,8 +19,10 @@ import { ProjectEntity } from './entities/project.entity';
 import { Query as ExpressQuery } from 'express-serve-static-core';
 import { FileInterceptor } from '@nestjs/platform-express/multer';
 import multer from 'multer';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('project')
+@ApiTags('Project')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
@@ -75,7 +77,10 @@ export class ProjectController {
   }
 
   @Get('detail/:id')
-  async findOne(@Res() response, @Param('id') id: string): Promise<ProjectEntity> {
+  async findOne(
+    @Res() response,
+    @Param('id') id: string,
+  ): Promise<ProjectEntity> {
     const result = await this.projectService.findOne(id);
     return response
       .status(200)
@@ -95,7 +100,10 @@ export class ProjectController {
   }
 
   @Delete('delete/:id')
-  async remove(@Res() response, @Param('id') id: string): Promise<ProjectEntity> {
+  async remove(
+    @Res() response,
+    @Param('id') id: string,
+  ): Promise<ProjectEntity> {
     const result = await this.projectService.remove(id);
     return response
       .status(200)

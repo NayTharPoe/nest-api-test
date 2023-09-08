@@ -8,8 +8,10 @@ import {
 } from '@nestjs/common';
 import { CreateReportDto } from 'src/report/dto/create-report-req.dto';
 import { ReportService } from 'src/report/services/report.service';
+import {ApiTags} from '@nestjs/swagger'
 
 @Controller('report')
+@ApiTags('Report')
 export class UpdateReportController {
   constructor(private readonly reportService: ReportService) {}
 

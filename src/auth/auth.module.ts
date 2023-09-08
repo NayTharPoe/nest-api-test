@@ -7,7 +7,7 @@ import { UserEntity, UserSchema } from 'src/user/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt/dist';
 import { UserService } from 'src/user/user.service';
 import { jwtConstants } from './constants';
-import { ChagnePasswordController } from './use-case/change-password/change-password.controller';
+import { ChangePasswordController } from './use-case/change-password/change-password.controller';
 import { SendResetPasswordLinkController } from './use-case/reset-password-link/reset-password-link.controller';
 import { PasswordResetController } from './use-case/password-reset/password-reset.controller';
 
@@ -22,7 +22,7 @@ import { PasswordResetController } from './use-case/password-reset/password-rese
   ],
   controllers: [
     LoginController,
-    ChagnePasswordController,
+    ChangePasswordController,
     SendResetPasswordLinkController,
     PasswordResetController,
   ],
